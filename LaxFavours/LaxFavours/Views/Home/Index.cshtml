@@ -1,33 +1,34 @@
-@using LaxFavours.Models
 
-@{
-    ViewBag.Title = "Index";
-}
 
-<h2>Home</h2>
-
-@(Html.DevExtreme().DataGrid<Order>()
-    .ShowBorders(true)
-    .DataSource(d => d.WebApi().Controller("Orders").Key("OrderID"))
-    .Columns(columns => {
-        columns.AddFor(m => m.OrderID);
-        columns.AddFor(m => m.OrderDate);
-        columns.AddFor(m => m.CustomerName);
-        columns.AddFor(m => m.ShipCountry);
-        columns.AddFor(m => m.ShipCity);
-    })
-    .Paging(p => p.PageSize(10))
-    .FilterRow(f => f.Visible(true))
-    .HeaderFilter(f => f.Visible(true))
-    .GroupPanel(p => p.Visible(true))
-    .Grouping(g => g.AutoExpandAll(false))
+@(Html.DevExtreme().DataGrid<LaxFavours.Models.Dtos.CustomerAddress>()
+    .DataSource(ds => ds.WebApi()
+        .RouteName("CustomerAddressesApi")
+        .LoadAction("Get")
+        .InsertAction("Post")
+        .UpdateAction("Put")
+        .DeleteAction("Delete")
+        .Key("ID")
+    )
     .RemoteOperations(true)
-    .Summary(s => s
-        .TotalItems(totalItems => {
-            totalItems.AddFor(m => m.ShipCity).SummaryType(SummaryType.Count);
-        })
-        .GroupItems(groupItems => {
-            groupItems.Add().SummaryType(SummaryType.Count);
-        })
+    .Columns(columns => {
+
+        columns.AddFor(m => m.ID);
+
+        columns.AddFor(m => m.customer_details_id);
+
+        columns.AddFor(m => m.address_type);
+
+        columns.AddFor(m => m.value);
+
+        columns.AddFor(m => m.state);
+
+        columns.AddFor(m => m.created_at);
+
+        columns.AddFor(m => m.updated_at);
+    })
+    .Editing(e => e
+        .AllowAdding(true)
+        .AllowUpdating(true)
+        .AllowDeleting(true)
     )
 )
