@@ -9,7 +9,7 @@ using LaxFavours.Models.Dtos;
 
 namespace LaxFavours.Models
 {
-    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
+   // [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class FavoursDbContext : DbContext
     {
         public virtual DbSet<CustomerDetail> CustomerDetails { get; set; }
